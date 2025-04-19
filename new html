@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UMM E KULSUM</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://i.ibb.co/vZJxK7z/bg.jpg') center/cover no-repeat;
+      backdrop-filter: blur(6px);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(0,0,0,0.6);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    #chat-box {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .message {
+      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      max-width: 70%;
+    }
+    .me {
+      background-color: #007bff;
+      margin-left: auto;
+    }
+    .kulsum {
+      background-color: #28a745;
+      margin-right: auto;
+    }
+    #input-area {
+      display: flex;
+      padding: 1rem;
+      background: rgba(0,0,0,0.6);
+    }
+    input, button {
+      font-size: 1rem;
+      padding: 0.5rem;
+      border: none;
+      outline: none;
+    }
+    input {
+      flex-grow: 1;
+      border-radius: 5px 0 0 5px;
+    }
+    button {
+      background: #ff3399;
+      color: white;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+    #lock-screen {
+      position: fixed;
+      top: 0; left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.95);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    #lock-screen input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+    }
+    #lock-screen button {
+      margin-top: 1rem;
+      background: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <div id="lock-screen">
+    <h2>Welcome Israfeel & Kulsum</h2>
+    <p>Enter your secret password:</p>
+    <input type="password" id="password-input" placeholder="Enter password..." />
+    <button onclick="unlock()">Enter</button>
+  </div>
+
+  <header>UMM E KULSUM</header>
+  <div id="chat-box"></div>
+  <div id="input-area">
+    <input type="text" id="msg-input" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    const password = "bandi823311";
+
+    function unlock() {
+      const input = document.getElementById('password-input').value;
+      if (input === password) {
+        document.getElementById('lock-screen').style.display = 'none';
+      } else {
+        alert('Wrong password!');
+      }
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('msg-input');
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      const sender = prompt("Who is sending this? Type 'me' or 'kulsum'").toLowerCase();
+      if (sender !== 'me' && sender !== 'kulsum') return alert('Invalid sender');
+
+      const chatBox = document.getElementById('chat-box');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}`;
+      messageDiv.textContent = msg;
+      chatBox.appendChild(messageDiv);
+      input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
